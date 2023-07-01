@@ -134,8 +134,10 @@ def iskeyStringOrList(var):
 
 
 def loadEncryptionSystem(dir_path):
-    with open('config.json','r')as f:
-        loaded_dict=json.load(f)
+    #with open('config.json','r')as f:
+    config_path = os.path.join(dir_path, 'config.json')
+    with open(config_path, 'r') as f:
+        loaded_dict = json.load(f)
         if(loaded_dict["type"]=="Caesar"):
             CaesarFlag=True
         else:
@@ -143,10 +145,14 @@ def loadEncryptionSystem(dir_path):
         if(loaded_dict["encrypt"]=='True'):#encrypte
             for filename in os.listdir(dir_path):
                 if filename.endswith(".txt"):
-                    with open(filename,'r')as g:
+                    #with open(filename,'r')as g:
+                    file_path=os.path.join(dir_path, filename)
+                    with open(file_path) as g:
                         if (CaesarFlag):
                             new_fileName = filename[:-4] + ".enc"
-                            with open(new_fileName, 'w') as h:
+                            #with open(new_fileName, 'w') as h:
+                            file_path1 = os.path.join(dir_path, new_fileName)
+                            with open(file_path1, 'w') as h:
                                 ceasar_cipher = CaesarCipher(loaded_dict["key"])
                                 for line in g:
                                     h.write(ceasar_cipher.encrypt(line))
@@ -154,7 +160,9 @@ def loadEncryptionSystem(dir_path):
                                     #h.write(ceasar_cipher.encrypt(modifedLine))
                         else:
                             new_fileName = filename[:-4] + ".enc"
-                            with open(new_fileName, 'w') as h:
+                            #with open(new_fileName, 'w') as h:
+                            file_path1 = os.path.join(dir_path, new_fileName)
+                            with open(file_path1, 'w') as h:
                                 flagOfVigenere = iskeyStringOrList(loaded_dict["key"])
                                 if (flagOfVigenere):
                                     vigenere_cipher = VigenereCipher(loaded_dict["key"])
@@ -172,16 +180,22 @@ def loadEncryptionSystem(dir_path):
         else:#this is for dycper
             for filename in os.listdir(dir_path):
                 if filename.endswith(".enc"):
-                    with open(filename, 'r') as g:
+                    #with open(filename, 'r') as g:
+                    file_path2 = os.path.join(dir_path, filename)
+                    with open(file_path2,'r') as g:
                         if (CaesarFlag):
                             new_fileName = filename[:-4] + ".txt"
-                            with open(new_fileName, 'w') as h:
+                            #with open(new_fileName, 'w') as h:
+                            file_path3 = os.path.join(dir_path, new_fileName)
+                            with open(file_path3, 'w') as h:
                                 ceasar_cipher = CaesarCipher(loaded_dict["key"])
                                 for line in g:
                                     h.write(ceasar_cipher.decrypt(line))
                         else:
                             new_fileName = filename[:-4] + ".txt"
-                            with open(new_fileName, 'w') as h:
+                            #with open(new_fileName, 'w') as h:
+                            file_path3 = os.path.join(dir_path, new_fileName)
+                            with open(file_path3, 'w') as h:
                                 flagOfVigenere = iskeyStringOrList(loaded_dict["key"])
                                 if (flagOfVigenere):
                                     vigenere_cipher = VigenereCipher(loaded_dict["key"])
@@ -196,7 +210,7 @@ def loadEncryptionSystem(dir_path):
 
 
 # CaesarCipher TEST
-# #c=CaesarCipher(3)
+#c=CaesarCipher(3)
 #print(c.encrypt('Mtm is the BEST!'))
 #print(c.decrypt('Pwp lv wkh EHVW!'))
 
@@ -220,5 +234,5 @@ def loadEncryptionSystem(dir_path):
 #print(v.decrypt('YI, V pg nnydseg'))
 
 #TODO we need to figure index behavior
-#dir_path=r"C:\mtm2023\ex5\tests\output\0"
+#dir_path=r"C:\mtm2023\ex5"
 #loadEncryptionSystem(dir_path)
