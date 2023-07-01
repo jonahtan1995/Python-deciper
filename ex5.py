@@ -80,20 +80,22 @@ def changeCharToInt(char):
         return (ord(char)-ord('a'))
 
 class VigenereCipher:
-    index=0
+    index1=0
+    index2=0
     def __init__(self,list):
         self.list=list
+        #VigenereCipher.index=0
 
     def encrypt(self,string):
         new_str=''
-        sizeOfList=len(self.list)
+        sizeOfList=len(self.list)#[1,2,index1=3,4,5] "pypdwqdqwwq" .
         for char in string:
-            if self.index>=sizeOfList:
-                self.index=0
-            new_str+=applayNewString(char,self.list[self.index])
+            if self.index1>=sizeOfList:
+                self.index1=0
+            new_str+=applayNewString(char,self.list[self.index1])
             if(not(checkIfUper(char) or checkIfLower(char))):
                 continue
-            self.index+=1
+            self.index1+=1
         return new_str
         #new_str=vigenereHelper(string,self.list,False,self.index)
         #return new_str
@@ -101,12 +103,12 @@ class VigenereCipher:
         new_str1=''
         sizeOfList=len(self.list)
         for char in string:
-            if self.index>=sizeOfList:
-                self.index=0
-            new_str1+=applayNewString(char,-self.list[self.index])
+            if self.index2>=sizeOfList:
+                self.index2=0
+            new_str1+=applayNewString(char,-self.list[self.index2])
             if(not(checkIfUper(char) or checkIfLower(char))):
                 continue
-            self.index+=1
+            self.index2+=1
         return new_str1
 
 
@@ -160,7 +162,7 @@ def loadEncryptionSystem(dir_path):
                                     vigenere_cipher = getVigenereFromStr(loaded_dict["key"])
                                 for line in g:
                                     h.write((vigenere_cipher.encrypt(line)))
-                                vigenere_cipher.index=0
+                                vigenere_cipher.index1=0
                                     #modifedLine = line + "\n"   did this so it will go down a line not 100% sure
                                     #h.write(vigenere_cipher.encrypt(modifedLine))
 
@@ -187,14 +189,36 @@ def loadEncryptionSystem(dir_path):
                                     vigenere_cipher = getVigenereFromStr(loaded_dict["key"])
                                 for line in g:
                                     h.write(vigenere_cipher.decrypt(line))
-                                vigenere_cipher.index = 0
+                                vigenere_cipher.index2 = 0
 
                 else:
                      continue
 
 
+# CaesarCipher TEST
+# #c=CaesarCipher(3)
+#print(c.encrypt('Mtm is the BEST!'))
+#print(c.decrypt('Pwp lv wkh EHVW!'))
+
+#Vigenere TESTS
+#V=VigenereCipher([3])
+#print((V.encrypt('l')))
+#print(V.decrypt('o'))
+
+#v=VigenereCipher([2,-4,-14,-16,-17,-17])
+#print(v.encrypt('we wish you best of luck in all of your exams'))
+#print(v.decrypt('ya isbq akg lnbv kr vdlm ez kuu qb kyda gtmwb'))
+
+#v=VigenereCipher([1,2,3,4,-5])
+#print(v.encrypt('Hello World!'))
+#print(v.decrypt('Igopj Xqupy!'))
 
 
+#TODO this test was problematic when i had only one index
+#v=getVigenereFromStr('python rules, C drools')
+#print(v.encrypt('JK, C is awesome'))
+#print(v.decrypt('YI, V pg nnydseg'))
 
-
-
+#TODO we need to figure index behavior
+#dir_path=r"C:\mtm2023\ex5\tests\output\0"
+#loadEncryptionSystem(dir_path)
