@@ -88,7 +88,7 @@ class VigenereCipher:
 
     def encrypt(self,string):
         new_str=''
-        sizeOfList=len(self.list)#[1,2,index1=3,4,5] "pypdwqdqwwq" .
+        sizeOfList=len(self.list)
         for char in string:
             if self.index1>=sizeOfList:
                 self.index1=0
