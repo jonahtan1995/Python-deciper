@@ -44,7 +44,7 @@ def applayNewString(string,key):
 
 class CaesarCipher:#
     def __init__(self,key):
-        self.key=key
+        self.key=key%26
 
     def encrypt(self,string):
         new_string1=applayNewString(string,self.key)
@@ -83,7 +83,7 @@ class VigenereCipher:
     index1=0
     index2=0
     def __init__(self,list):
-        self.list=list
+        self.list=[elem%26 for elem in list]
         #VigenereCipher.index=0
 
     def encrypt(self,string):
@@ -234,5 +234,5 @@ def loadEncryptionSystem(dir_path):
 #print(v.decrypt('YI, V pg nnydseg'))
 
 #TODO we need to figure index behavior
-#dir_path=r"C:\mtm2023\ex5"
+#dir_path=r'C:\mtm2023\ex5\tests\output\797'
 #loadEncryptionSystem(dir_path)
